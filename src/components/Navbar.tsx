@@ -1,7 +1,10 @@
+import { useSession } from 'next-auth/react'
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import {Bell, Search} from 'react-feather'
 export default function Navbar() {
+  const {data:session} = useSession()
   return (
     <header className='bg-yellow-400 w-full h-[60px] px-5 flex justify-between items-center'>
       <div className='relative max-w-[200px]'>
@@ -18,10 +21,10 @@ export default function Navbar() {
           <Bell width={30}/>
         </Link>
         <div className='flex justify-center items-center gap-2'>
-          <Link className='flex items-center gap-3' href={'/profile'}>
-            <div className='w-[30px] h-[30px] rounded-full bg-red-700'></div>
-            <h3 className='hidden md:block'>Username</h3>
-          </Link>
+          {session ? <Link className='flex items-center gap-3' href={'/profile'}>
+            <Image className='rounded-full' src={session?.user?.image as string} height={30} width={30} alt='user-profile'/>
+            <h3 className='hidden md:block'>{session?.user?.name}</h3>
+          </Link> : <Link href='/login'>Login</Link>}
         </div>
       </div>
     </header>
