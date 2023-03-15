@@ -60,6 +60,8 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    teams   Team[]
+    playerInTeams Team[] @relation("Player")
 }
 
 model VerificationToken {
@@ -68,4 +70,45 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+
+model Team{
+    id Int @id @default(autoincrement())
+    name String
+    image String?
+    userId Int
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    createdAt DateTime @default(now())
+    homeMatches Match[] @relation("HomeTeam")
+    awayMatches Match[] @relation("AwayTeam")
+    players User[] @relation("Player")
+
+    @@index([userId])
+}
+
+model Match{
+    id Int @id @default(autoincrement())
+    date DateTime
+    homeTeamId Int
+    homeTeam Team @relation("HomeTeam", fields: [homeTeamId], references: [id])
+    awayTeamId Int
+    awayTeam Team @relation("AwayTeam", fields: [awayTeamId], references: [id])
+    homeScore Int
+    awayScore Int
+    tournamentId Int
+    tournaments Tournament @relation(fields: [tournamentId],references: [id])
+    @@index([homeTeamId])
+    @@index([awayTeamId])
+    @@index([tournamentId])
+}
+
+model Tournament{
+    id Int @id @default(autoincrement())
+    name String
+    image String
+    startDate DateTime
+    endDate DateTime
+    createdAt DateTime @default(now())
+    matches Match[]
 }
