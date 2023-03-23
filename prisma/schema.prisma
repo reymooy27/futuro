@@ -61,6 +61,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     teams   Team[]
+    tournaments Tournament[]
     playerInTeams Team[] @relation("Player")
 }
 
@@ -83,7 +84,7 @@ model Team{
     homeMatches Match[] @relation("HomeTeam")
     awayMatches Match[] @relation("AwayTeam")
     players User[] @relation("Player")
-
+    tournaments Tournament[]
     @@index([userId])
 }
 
@@ -94,8 +95,8 @@ model Match{
     homeTeam Team @relation("HomeTeam", fields: [homeTeamId], references: [id])
     awayTeamId Int
     awayTeam Team @relation("AwayTeam", fields: [awayTeamId], references: [id])
-    homeScore Int
-    awayScore Int
+    homeScore Int @default(0)
+    awayScore Int @default(0)
     tournamentId Int
     tournaments Tournament @relation(fields: [tournamentId],references: [id])
     @@index([homeTeamId])
@@ -106,9 +107,14 @@ model Match{
 model Tournament{
     id Int @id @default(autoincrement())
     name String
-    image String
-    startDate DateTime
-    endDate DateTime
+    image String?
+    startDate DateTime?
+    endDate DateTime?
     createdAt DateTime @default(now())
     matches Match[]
+    teams Team[]
+    userId Int
+    user User @relation(fields: [userId], references: [id])
+
+    @@index([userId])
 }
