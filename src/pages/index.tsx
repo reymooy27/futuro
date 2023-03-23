@@ -16,7 +16,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className='w-full h-[9em] md:h-[14em] p-2 bg-red-500 rounded-xl '>
+      <div className='w-full h-[9em] md:h-[14em] p-2 border border-border rounded-xl '>
         <h1>Banner</h1>
       </div>
 
@@ -27,8 +27,8 @@ export default function Home() {
         </div>
         <div className='w-full flex gap-3 overflow-x-auto mt-2'>
           {[...Array(5)].map((tournament, i)=>(
-            <Link key={i} href={`/tournament/${i}`}>
-              <div className='min-w-[200px] h-[100px] rounded-xl bg-red-500'></div>
+            <Link key={i} href={`/tournament/${i}`} className='min-w-[200px] h-[100px] rounded-xl border border-border hover:opacity-[0.2] transition-all ease-in-out duration-300'>
+              <div></div>
             </Link>
           ))}
         </div>
