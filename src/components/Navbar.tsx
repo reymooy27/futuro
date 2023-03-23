@@ -6,7 +6,7 @@ import {Bell, Search} from 'react-feather'
 export default function Navbar() {
   const {data:session} = useSession()
   return (
-    <header className='bg-yellow-400 w-full h-[60px] px-5 flex justify-between items-center'>
+    <header className='border-b border-border w-full h-[60px] px-5 flex justify-between items-center'>
       <div className='relative max-w-[200px]'>
         <span className='absolute h-full pl-2 left-0 flex items-center justify-center'>
           <Search />

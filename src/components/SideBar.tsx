@@ -4,7 +4,7 @@ import { Home, MessageSquare, Settings} from 'react-feather'
 export default function SideBar() {
   
   return (
-    <aside className='fixed top-0 bottom-0 left-[-1000px] md:left-0 w-[200px] bg-red-400'>
+    <aside className='fixed top-0 bottom-0 left-[-1000px] md:left-0 w-[200px] border-r border-border'>
       <div className='flex justify-center items-center p-4'>
         <h1 className='text-xl bold'>Futuro</h1>
       </div>
