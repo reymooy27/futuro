@@ -27,6 +27,10 @@ export const tournamentRouter = createTRPCRouter({
       const tournament = ctx.prisma.tournament.findUnique({
         where:{
           id: input
+        },
+        include:{
+          matches: true,
+          teams: true
         }
       });
       return tournament
