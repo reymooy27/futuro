@@ -9,7 +9,7 @@ export default function SideBar() {
         <h1 className='text-xl bold'>Futuro</h1>
       </div>
       <nav className='flex flex-col items-center px-3'>
-        <Link href='/' className='w-full rounded-md flex items-center gap-2 m-3 px-3 hover:text-green-500'>
+        <Link href='/' className='w-full rounded-md flex items-center gap-2 p-3 hover:bg-slate-400'>
             <Home/>
             <h2>Home</h2>
         </Link>
@@ -17,7 +17,7 @@ export default function SideBar() {
           <MessageSquare/>
           <h2>Messages</h2>
         </Link> */}
-        <Link href='/settings' className='w-full rounded-md flex items-center gap-2 m-3 px-3 hover:text-green-500'>
+        <Link href='/settings' className='w-full rounded-md flex items-center gap-2 p-3 hover:bg-slate-400'>
           <Settings/>
           <h2>Settings</h2>
         </Link>
