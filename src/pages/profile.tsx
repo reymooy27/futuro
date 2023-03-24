@@ -42,26 +42,30 @@ export default function Profile() {
           <h1 className='font-bold text-xl'>Tim Saya</h1>
           <CreateTeam />
         </div>
-        {myTeamData?.data?.map(dt=>(
-          <Link key={dt.id} href={`/team/${dt.id}`}>
-            <div className='w-[100px] h-[100px] rounded border border-border bg-primary'>
-              <h1>{dt.name}</h1>
-            </div>
-          </Link>
-        ))}
+        <div className="flex gap-3">
+          {myTeamData?.data?.map(dt=>(
+            <Link key={dt.id} href={`/team/${dt.id}`}>
+              <div className='w-[100px] h-[100px] p-3 rounded border border-border bg-slate-300'>
+                <h1>{dt.name}</h1>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
       <div className="mt-5">
         <div className='w-full flex justify-between'>
           <h1 className='font-bold text-xl'>Tournament</h1>
           <CreateTournament/>
         </div>
-        {myTournament?.data?.map(dt=>(
-          <Link key={dt.id} href={`/tournament/${dt.id}`}>
-          <div className='w-[100px] h-[100px] rounded border border-border bg-primary'>
-            <h1>{dt.name}</h1>
-          </div>
-        </Link>
-        ))}
+        <div className="flex gap-3">
+          {myTournament?.data?.map(dt=>(
+            <Link key={dt.id} href={`/tournament/${dt.id}`}>
+            <div className='w-[100px] h-[100px] p-3 rounded border border-border bg-slate-300'>
+              <h1>{dt.name}</h1>
+            </div>
+          </Link>
+          ))}
+        </div>
       </div>
     </>
   )
