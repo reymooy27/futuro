@@ -3,11 +3,14 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { ReactElement } from 'react'
 import Layout from '~/components/Layout'
+import { api } from '~/utils/api'
 
 export default function Home() {
 
   const {data:session} = useSession()
-  console.log(session)
+
+  const {data: allTournament} = api.tournament.getAll.useQuery()
+
   return (
     <>
       <Head>
@@ -26,9 +29,9 @@ export default function Home() {
           <Link href='/tournament/all' className='text-[12px]'>Lihat Semua</Link>
         </div>
         <div className='w-full flex gap-3 overflow-x-auto mt-2'>
-          {[...Array(5)].map((tournament, i)=>(
-            <Link key={i} href={`/tournament/${i}`} className='min-w-[200px] h-[100px] rounded-xl border border-border hover:opacity-[0.2] transition-all ease-in-out duration-300'>
-              <div></div>
+          {allTournament?.map((tournament)=>(
+            <Link key={tournament?.id} href={`/tournament/${tournament?.id}`} className='min-w-[200px] h-[100px] rounded-xl border border-border hover:opacity-[0.2] transition-all ease-in-out duration-300'>
+              <div>{tournament.name}</div>
             </Link>
           ))}
         </div>
