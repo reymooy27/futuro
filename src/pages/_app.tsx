@@ -30,7 +30,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   const getLayout = Component.getLayout ?? ((page) => page)
 
   return (
-    <SessionProvider session={session}>
+    <SessionProvider session={session as Session}>
       <ChakraProvider>
         {Component.auth ? (
           <Auth>
