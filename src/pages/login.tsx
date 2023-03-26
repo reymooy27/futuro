@@ -11,8 +11,8 @@ export default function Login() {
   const handleSignIn = ()=>{
     setLoading(true)
     signIn('google', {callbackUrl: CALLBACK_URL})
-    .then((onfullfilled)=> setLoading(false))
-    .catch(onrejected=> setLoading(false))
+    .then(()=> setLoading(false))
+    .catch(()=> setLoading(false))
   }
 
 

@@ -1,7 +1,8 @@
 import Layout from '~/components/Layout'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React, { ReactElement, useState } from 'react'
+import React, { useState } from 'react'
+import type { ReactElement } from 'react'
 import { api } from '~/utils/api'
 import {  Modal,
   ModalOverlay,
@@ -38,7 +39,6 @@ export default function Tournament() {
 
   function JoinTournament() {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const [loading, setLoading] = useState(false)
     return (
       <>
         <Button onClick={onOpen}>Ikut Turnamen</Button>

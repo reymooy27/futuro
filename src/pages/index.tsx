@@ -1,13 +1,10 @@
-import { useSession } from 'next-auth/react'
 import Head from 'next/head'
 import Link from 'next/link'
-import { ReactElement } from 'react'
+import type { ReactElement } from 'react'
 import Layout from '~/components/Layout'
 import { api } from '~/utils/api'
 
 export default function Home() {
-
-  const {data:session} = useSession()
 
   const {data: allTournament} = api.tournament.getAll.useQuery()
 

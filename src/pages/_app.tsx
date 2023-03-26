@@ -5,8 +5,8 @@ import { SessionProvider, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
-import { ReactElement } from "react";
-import { NextPage } from "next";
+import type { ReactElement } from "react";
+import type { NextPage } from "next";
 import { ChakraProvider } from "@chakra-ui/react";
 
 

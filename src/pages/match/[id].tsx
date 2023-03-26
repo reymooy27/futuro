@@ -1,7 +1,8 @@
 import Layout from '~/components/Layout'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React, { ReactElement } from 'react'
+import React from 'react'
+import type { ReactElement } from 'react'
 
 export default function Match() {
 

@@ -1,6 +1,8 @@
 import Layout from '~/components/Layout'
 import Head from 'next/head'
-import React, { InputHTMLAttributes, ReactElement, useState } from 'react'
+import React, { useState } from 'react'
+import type { InputHTMLAttributes, ReactElement } from 'react'
+
 import { useSession } from 'next-auth/react'
 import {
   Modal,
@@ -80,7 +82,7 @@ function CreateTeam() {
     name: ''
   })
 
-  const {mutate, error} = api.team.createTeam.useMutation()
+  const {mutate} = api.team.createTeam.useMutation()
 
   function handleSubmit(){
     setLoading(true)
@@ -128,7 +130,7 @@ function CreateTournament() {
     name: ''
   })
 
-  const {mutate, error} = api.tournament.createTournament.useMutation()
+  const {mutate} = api.tournament.createTournament.useMutation()
 
   function handleSubmit(){
     setLoading(true)

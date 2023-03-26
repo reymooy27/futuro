@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { Home, MessageSquare, Settings} from 'react-feather'
+import { Home, Settings} from 'react-feather'
 export default function SideBar() {
   
   return (
