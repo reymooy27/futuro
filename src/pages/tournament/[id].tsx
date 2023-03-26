@@ -1,7 +1,7 @@
 import Layout from '~/components/Layout'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React from 'react'
 import type { ReactElement } from 'react'
 import { api } from '~/utils/api'
 import {  Modal,

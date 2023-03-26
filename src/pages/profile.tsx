@@ -1,7 +1,7 @@
 import Layout from '~/components/Layout'
 import Head from 'next/head'
 import React, { useState } from 'react'
-import type { InputHTMLAttributes, ReactElement } from 'react'
+import type { ReactElement } from 'react'
 
 import { useSession } from 'next-auth/react'
 import {
