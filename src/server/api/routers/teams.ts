@@ -27,6 +27,17 @@ export const teamRouter = createTRPCRouter({
       const team = ctx.prisma.team.findUnique({
         where:{
           id: input
+        },
+        include:{
+          awayMatches: true,
+          homeMatches: true,
+          players: true,
+          tournaments:{
+            select:{
+              id: true,
+              name: true
+            }
+          }
         }
       });
       return team
@@ -71,4 +82,45 @@ export const teamRouter = createTRPCRouter({
       })
     }
   }),
+
+  addTeamToTournament: protectedProcedure
+  .input(z.object({
+    teamId: z.number(),
+    tournamentId: z.number()
+  }))
+  .mutation(async ({input, ctx})=>{
+    try {
+      const registered = await ctx.prisma.team.findFirst({
+        where:{
+          id: input.teamId,
+          tournaments:{
+            some:{
+              id: input.tournamentId
+            }
+          }
+        }
+      })
+
+      if(registered) return 'Tim sudah terdaftar'
+
+      await ctx.prisma.team.update({
+        where:{
+          id: input.teamId
+        },
+        data:{
+          tournaments:{
+            connect:{
+              id: input.tournamentId
+            }
+          }
+        }
+      })
+      return 'Berhasil'
+    } catch (error) {
+      throw new TRPCError({
+        code: 'BAD_REQUEST',
+        message: 'There is something wrong'
+      })
+    }
+  })
 });

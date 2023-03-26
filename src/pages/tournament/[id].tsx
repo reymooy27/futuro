@@ -1,26 +1,63 @@
 import Layout from '~/components/Layout'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { api } from '~/utils/api'
-import { Spinner } from '@chakra-ui/react'
-import {
+import {  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button,
+  Spinner,
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
   TableCaption,
   TableContainer,
 } from '@chakra-ui/react'
+import Link from 'next/link'
 
 export default function Tournament() {
 
   const router = useRouter()
+  const tournamentId = parseInt(router.query.id as string, 10)
 
-  const {data, isLoading} = api.tournament.getTournamentById.useQuery(parseInt(router.query.id as string, 10))
+  const {mutate} = api.team.addTeamToTournament.useMutation()
+  const {data: myTeam} = api.team.getMyTeam.useQuery()
+  const {data, isLoading} = api.tournament.getTournamentById.useQuery(tournamentId)
+
+  function joinTournament(teamId: number){
+    mutate({teamId: teamId, tournamentId: tournamentId})
+  }
+
+  function JoinTournament() {
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const [loading, setLoading] = useState(false)
+    return (
+      <>
+        <Button onClick={onOpen}>Ikut Turnamen</Button>
+  
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Pilih Tim</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody className='flex gap-3 flex-wrap'>
+              {myTeam?.map(team=>(
+                <div onClick={()=>joinTournament(team?.id)} key={team?.id} className='rounded p-3 bg-slate-400 cursor-pointer'>{team?.name}</div>
+              ))}
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      </>
+    )
+  }
 
   if(isLoading) return <Spinner/>
 
@@ -35,6 +72,7 @@ export default function Tournament() {
       <h1 className='font-bold text-xl'>{data?.name}</h1>
       <div className='mt-3'>
         <h1 className="font-bold">Tim yg bermain</h1>
+        <JoinTournament/>
         <TableContainer>
           <Table variant='simple'>
             <TableCaption placement='top'>Grup A</TableCaption>
@@ -50,10 +88,14 @@ export default function Tournament() {
             </Thead>
             <Tbody>
               {data?.teams.length < 1 && <div className='p-3'>Tidak ada data tim</div>}
-              {data?.teams?.map(team=>(
+              {data?.teams?.map((team, index)=>(
                 <Tr key={team?.id}>
-                  <Td contentEditable>-</Td>
-                  <Td>-</Td>
+                  <Td>{index + 1}</Td>
+                  <Td>
+                    <Link href={`/team/${team?.id}`}>
+                      {team?.name}
+                    </Link>
+                  </Td>
                   <Td>-</Td>
                   <Td>-</Td>
                   <Td>-</Td>
