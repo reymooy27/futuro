@@ -1,6 +1,6 @@
 import Layout from '~/components/Layout'
 import Head from 'next/head'
-import React, { ReactElement, useState } from 'react'
+import React, { InputHTMLAttributes, ReactElement, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import {
   Modal,
@@ -90,7 +90,7 @@ function CreateTeam() {
     onClose()
   }
 
-  function handleChange(e){
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>){
     setInput({...input, [e.target.name]: e.target.value})
   }
   
@@ -138,7 +138,7 @@ function CreateTournament() {
     onClose()
   }
 
-  function handleChange(e){
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>){
     setInput({...input, [e.target.name]: e.target.value})
   }
   
