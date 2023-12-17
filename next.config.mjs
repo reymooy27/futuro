@@ -22,6 +22,7 @@ const config = {
   },
   images:{
     domains: ['lh3.googleusercontent.com', "res.cloudinary.com"]
-  }
+  },
+  output: 'standalone',
 };
 export default config;
