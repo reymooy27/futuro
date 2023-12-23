@@ -85,11 +85,15 @@ function CreateTeam() {
   const {mutate} = api.team.createTeam.useMutation()
 
   function handleSubmit(){
-    setLoading(true)
-    mutate({name: input.name})
-    setLoading(false)
-    setInput({name: ''})
-    onClose()
+    if(input.name === ''){
+      window.alert('Input tidak booleh kosongd')
+    }else{
+      setLoading(true)
+      mutate({name: input.name})
+      setLoading(false)
+      setInput({name: ''})
+      onClose()
+    }
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>){
@@ -106,7 +110,7 @@ function CreateTeam() {
           <ModalHeader>Buat Tim</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Input type="text" value={input.name} placeholder='Nama' name='name' onChange={handleChange}/>
+            <Input required type="text" value={input.name} placeholder='Nama' name='name' onChange={handleChange}/>
           </ModalBody>
 
           <ModalFooter className='flex gap-3'>
@@ -133,11 +137,15 @@ function CreateTournament() {
   const {mutate} = api.tournament.createTournament.useMutation()
 
   function handleSubmit(){
-    setLoading(true)
-    mutate({name: input.name})
-    setLoading(false)
-    setInput({name: ''})
-    onClose()
+    if(input.name === ''){
+      window.alert('Nama tidak boleh kosong')
+    }else{
+      setLoading(true)
+      mutate({name: input.name})
+      setLoading(false)
+      setInput({name: ''})
+      onClose()
+    }
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>){
@@ -154,7 +162,7 @@ function CreateTournament() {
           <ModalHeader>Buat Turnamen</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Input type="text" value={input.name} placeholder='Nama' name='name' onChange={handleChange}/>
+            <Input required type="text" value={input.name} placeholder='Nama' name='name' onChange={handleChange}/>
           </ModalBody>
 
           <ModalFooter className='flex gap-3'>
