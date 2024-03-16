@@ -7,12 +7,9 @@ generator client {
 }
 
 datasource db {
-    provider = "mysql"
-    // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+    provider = "postgresql"
     url      = env("DATABASE_URL")
+    directUrl      = env("DIRECT_URL")
     relationMode = "prisma"
 
 }
@@ -86,8 +83,21 @@ model Team{
     awayMatches Match[] @relation("AwayTeam")
     players User[] @relation("Player")
     tournaments Tournament[]
+    TournamentRegister TeamRegisterTournament[]
     @@index([userId])
 }
+
+model TeamRegisterTournament {
+    id Int @id @default(autoincrement())
+    status String? @default("PENDING")
+    createdAt DateTime? @default(now())
+    teamId Int
+    tournamentId Int
+    team Team @relation(fields: [teamId], references: [id])
+    tournament Tournament @relation(fields: [tournamentId], references: [id])
+    @@index([teamId])
+    @@index([tournamentId])
+  }
 
 model Match{
     id Int @id @default(autoincrement())
@@ -116,6 +126,7 @@ model Tournament{
     teams Team[]
     userId Int?
     user User? @relation(fields: [userId], references: [id])
+    teamsRegistered TeamRegisterTournament[]
 
     @@index([userId])
 }
