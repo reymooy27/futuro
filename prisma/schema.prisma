@@ -93,8 +93,8 @@ model TeamRegisterTournament {
     createdAt DateTime? @default(now())
     teamId Int
     tournamentId Int
-    team Team @relation(fields: [teamId], references: [id])
-    tournament Tournament @relation(fields: [tournamentId], references: [id])
+    team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+    tournament Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
     @@index([teamId])
     @@index([tournamentId])
   }
