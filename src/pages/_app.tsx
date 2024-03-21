@@ -31,7 +31,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 
   return (
     <SessionProvider session={session as Session}>
-      <ChakraProvider>
+      <ChakraProvider toastOptions={{ defaultOptions: { position: 'top-right' }}}>
         {Component.auth ? (
           <Auth>
             {getLayout(<Component {...pageProps} />)}

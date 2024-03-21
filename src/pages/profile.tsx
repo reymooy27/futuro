@@ -1,8 +1,8 @@
 import Layout from '~/components/Layout'
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import type { ReactElement } from 'react'
-
+import { useToast } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
 import {
   Modal,
@@ -42,7 +42,7 @@ export default function Profile() {
       <div className="mt-5">
         <div className="w-full flex justify-between">
           <h1 className='font-bold text-xl'>Tim Saya</h1>
-          <CreateTeam />
+          <CreateTeam/>
         </div>
         <div className="flex gap-3">
           {myTeamData?.data?.map(dt=>(
@@ -75,6 +75,7 @@ export default function Profile() {
 
 function CreateTeam() {
 
+  const toast = useToast()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [loading, setLoading] = useState(false)
 
@@ -82,19 +83,32 @@ function CreateTeam() {
     name: ''
   })
 
-  const {mutate} = api.team.createTeam.useMutation()
+  const mutation = api.team.createTeam.useMutation()
 
   function handleSubmit(){
     if(input.name === ''){
       window.alert('Input tidak booleh kosongd')
     }else{
       setLoading(true)
-      mutate({name: input.name})
+      mutation.mutate({name: input.name})
       setLoading(false)
       setInput({name: ''})
       onClose()
+      }
     }
-  }
+
+  useEffect(() => {
+    if(mutation.isSuccess){
+      toast({
+        title: 'Berhasil',
+        description: "Berhasil membuat tim",
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      })
+    }
+  }, [mutation.isSuccess, toast])
+
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>){
     setInput({...input, [e.target.name]: e.target.value})
@@ -130,23 +144,36 @@ function CreateTournament() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [loading, setLoading] = useState(false)
 
+  const toast = useToast()
   const [input, setInput] = useState({
     name: ''
   })
 
-  const {mutate} = api.tournament.createTournament.useMutation()
+  const mutation = api.tournament.createTournament.useMutation()
 
   function handleSubmit(){
     if(input.name === ''){
       window.alert('Nama tidak boleh kosong')
     }else{
       setLoading(true)
-      mutate({name: input.name})
+      mutation.mutate({name: input.name})
       setLoading(false)
       setInput({name: ''})
       onClose()
     }
   }
+
+  useEffect(() => {
+    if(mutation.isSuccess){
+      toast({
+        title: 'Berhasil',
+        description: "Berhasil membuat turnamen",
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      })
+    }
+  }, [mutation.isSuccess, toast])
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>){
     setInput({...input, [e.target.name]: e.target.value})
